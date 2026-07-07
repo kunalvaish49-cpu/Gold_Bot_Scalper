@@ -551,7 +551,7 @@ void ObservationEngine_ReadClosedCandles()
 
     for(int i = 0; i < ObservationLength; i++)
     {
-        CandleRecord &c = closedCandles[i];
+        CandleRecord c;
         c.open  = openArr[i];
         c.high  = highArr[i];
         c.low   = lowArr[i];
@@ -578,6 +578,8 @@ void ObservationEngine_ReadClosedCandles()
             c.upperWickPct = 0.0;
             c.lowerWickPct = 0.0;
         }
+
+        closedCandles[i] = c;
     }
 }
 
@@ -610,7 +612,7 @@ void ObservationEngine_AnalyzeHistory()
 
     for(int i = 0; i < recentCount; i++)
     {
-        CandleRecord &c = closedCandles[i];
+        const CandleRecord c = closedCandles[i];
         sumBodyRecent      += c.body;
         sumRangeRecent     += c.range;
         sumUWRecent        += c.upperWick;
@@ -623,7 +625,7 @@ void ObservationEngine_AnalyzeHistory()
 
     for(int i = recentCount; i < closedCandleCount; i++)
     {
-        CandleRecord &c = closedCandles[i];
+        const CandleRecord c = closedCandles[i];
         sumBodyEarlier      += c.body;
         sumRangeEarlier     += c.range;
         sumUWEarlier        += c.upperWick;
